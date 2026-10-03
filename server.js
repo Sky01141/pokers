@@ -4,7 +4,7 @@ const { Game } = require('./game');
 const app = express();
 const fs = require('fs');
 const CLIENT = [path.join(__dirname, '../client'), path.join(process.cwd(), 'client')].find(d => fs.existsSync(path.join(d, 'index.html')));
-if (!CLIENT) console.error('client/index.html not found', { dirname: __dirname, cwd: process.cwd(), parent: fs.readdirSync(path.join(__dirname, '..')) });
+if (!CLIENT) console.error('client/index.html not found', { dirname: __dirname, '../client/index.html', cwd: process.cwd(), parent: fs.readdirSync(path.join(__dirname, '..')) });
 else app.use(express.static(CLIENT));
 app.get('/', (req, res) => CLIENT ? res.sendFile(path.join(CLIENT, 'index.html')) : res.status(500).send('client/index.html が見つかりません。リポジトリ直下に client/ と server/ と package.json が並んでいるか確認してください。'));
 const srv = http.createServer(app), io = new Server(srv);
